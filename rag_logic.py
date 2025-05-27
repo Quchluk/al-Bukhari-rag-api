@@ -1,7 +1,7 @@
 import pickle
-from langchain.vectorstores import FAISS
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.chat_models import ChatOpenAI
+from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
 
 
@@ -14,11 +14,15 @@ def load_vectorstore():
 
 # Главная функция ответа
 def answer_question(question: str, api_key: str):
-    embeddings = OpenAIEmbeddings(openai_api_key=api_key)
+    embeddings = OpenAIEmbeddings(openai_api_key=api_key, base_url="https://openrouter.ai/api/v1")
     db = FAISS.load_local("hadith_index", embeddings, allow_dangerous_deserialization=True)
 
     retriever = db.as_retriever(search_kwargs={"k": 4})
-    llm = ChatOpenAI(openai_api_key=api_key, model_name="gpt-3.5-turbo")
+    llm = ChatOpenAI(
+        openai_api_key=api_key,
+        model_name="openrouter/openai/gpt-3.5-turbo",
+        base_url="https://openrouter.ai/api/v1"
+    )
 
     chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
     result = chain({"query": question})
