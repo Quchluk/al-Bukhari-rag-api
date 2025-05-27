@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+openai
+chromadb
+tiktoken
+langchain
+openai
+faiss-cpu
+tiktoken
