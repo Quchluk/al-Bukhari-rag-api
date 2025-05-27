@@ -19,10 +19,10 @@ def answer_question(question: str, api_key: str):
 
     retriever = db.as_retriever(search_kwargs={"k": 4})
     llm = ChatOpenAI(
-        openai_api_key=api_key,
-        model_name="openrouter/openai/gpt-3.5-turbo",
-        base_url="https://openrouter.ai/api/v1"
-    )
+    openai_api_key=api_key,
+    model_name="openai/gpt-4o-mini",
+    base_url="https://openrouter.ai/api/v1"
+)
 
     chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
     result = chain({"query": question})
