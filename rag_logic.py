@@ -14,15 +14,19 @@ def load_vectorstore():
 
 # Главная функция ответа
 def answer_question(question: str, api_key: str):
-    embeddings = OpenAIEmbeddings(openai_api_key=api_key, base_url="https://openrouter.ai/api/v1")
+    embeddings = OpenAIEmbeddings(
+        openai_api_key=api_key,
+        base_url="https://openrouter.ai/api/v1"
+    )
+    
     db = FAISS.load_local("hadith_index", embeddings, allow_dangerous_deserialization=True)
 
     retriever = db.as_retriever(search_kwargs={"k": 4})
     llm = ChatOpenAI(
-    openai_api_key=api_key,
-    model_name="gpt-4o-mini",
-    base_url="https://openrouter.ai/api/v1"
-)
+        openai_api_key=api_key,
+        model_name="gpt-4o-mini",  # ✅ исправлено
+        base_url="https://openrouter.ai/api/v1"
+    )
 
     chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
     result = chain({"query": question})
