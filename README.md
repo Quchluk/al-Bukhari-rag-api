@@ -14,19 +14,11 @@ This is a simple Retrieval-Augmented Generation (RAG) web app built with [Stream
 
 ---
 
-## 🚀 Live Deployment (Render)
+🌐 Try it Live
 
-To deploy on [Render](https://render.com/):
+The app is fully deployed and freely accessible at:
 
-1. Push this project to a GitHub repository
-2. Create a new **Web Service** on Render
-3. Set the root directory to the project folder
-4. Add the following environment variables manually:
-
-OPENAI_API_KEY=your_openai_key
-OPENROUTER_API_KEY=your_openrouter_key
-
-5. Deploy using the included `render.yaml`.
+🔗 https://al-bukhari-rag.onrender.com
 
 ---
 
