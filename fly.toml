@@ -1,7 +1,16 @@
-app = "al-bukhari-rag-api"
+app = "al-bukhari-streamlit"  # или замени на своё имя в Fly.io
 
 [build]
   builder = "paketobuildpacks/builder:base"
 
 [env]
-  PORT = "8080"
+  PORT = "8501"
+
+[[services]]
+  internal_port = 8501
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 80
+  [[services.ports]]
+    port = 443
